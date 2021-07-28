@@ -2,7 +2,6 @@
 using System.Collections;
 using UnityEngine;
 using System.Linq;
-using System.Collections.Generic;
 
 internal interface IComet
 {
@@ -30,6 +29,8 @@ internal class DaredevilComet : IComet
         script.OnModuleStrikeEvent -= action;
         particles.Stop();
         script.Log("The Daredevil Comet has gone. You are safer for now.");
+
+        script.Solve();
     }
 }
 
@@ -64,7 +65,7 @@ internal class CosmicComet : IComet
         c.a = 1f;
         r.SetColor(c);
 
-        script.OnCosmicMouseoverEvent += () => script.Strike("You ran into the cosmic shadow!");
+        script.Dangerous = true;
     }
 
     public void Destroy()
@@ -73,7 +74,9 @@ internal class CosmicComet : IComet
         script.Log("The Cosmic Comet has gone. You are safer for now.");
 
         script.CosmicOrb.gameObject.SetActive(false);
-        script.OnCosmicMouseoverEvent -= () => script.Strike("You ran into the cosmic shadow!");
+        script.Dangerous = false;
+
+        script.Solve();
     }
 }
 
@@ -142,5 +145,7 @@ internal class PurpleComet : IComet
             if(mod.GetComponent<KMSelectable>().OnHighlightEnded != null)
                 mod.GetComponent<KMSelectable>().OnHighlightEnded();
         }
+
+        script.Solve();
     }
 }

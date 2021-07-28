@@ -23,12 +23,12 @@ public class PranksterScript : ModuleScript
 
     internal Action OnModuleStrikeEvent { get; set; }
 
-    internal Action OnCosmicMouseoverEvent { get; set; }
+    internal bool Dangerous { get; set; }
 
     private void Start()
     {
         OnModuleStrikeEvent = () => { };
-        OnCosmicMouseoverEvent = () => { };
+        Dangerous = false;
         Vignette.anchorMin = new Vector2(1, 0);
         Vignette.anchorMax = new Vector2(0, 1);
         Vignette.pivot = new Vector2(0.5f, 0.5f);
@@ -72,6 +72,10 @@ public class PranksterScript : ModuleScript
 
     public void OnCosmic()
     {
-        OnCosmicMouseoverEvent();
+        if(Dangerous)
+        {
+            Strike("You ran into the cosmic shadow!");
+            currentComet.Destroy();
+        }
     }
 }
