@@ -41,7 +41,7 @@ internal class PurpleCometFactory : CometFactory
 {
     internal override IComet Generate(ParticleSystem particles, PranksterScript script)
     {
-        script.Log("A Purple Comet has arrived! Be sure to collect all the purple highlights.");
+        script.Log("A Purple Comet has arrived! Be sure to collect all the pink highlights.");
 
         PurpleComet comet = new PurpleComet(particles, script);
 

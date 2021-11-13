@@ -46,6 +46,11 @@ internal class CosmicComet : IComet
         this.script = script;
 
         script.CosmicOrb.gameObject.SetActive(true);
+        if (script.TwitchPlaysActive)
+        {
+            script.TPCursor.gameObject.SetActive(true);
+            script.TPCursor.localPosition = new Vector3(0, 0);
+        }
         script.StartCoroutine(Blink());
     }
 
@@ -53,7 +58,10 @@ internal class CosmicComet : IComet
     {
         CanvasRenderer r = script.CosmicOrb.GetComponent<CanvasRenderer>();
         Color c = r.GetColor();
-        for(int i = 0; i < 5; i++)
+        int safeZone = 5;
+        if (script.TwitchPlaysActive)
+            safeZone = 20;
+        for(int i = 0; i < safeZone; i++)
         {
             c.a = 1f;
             r.SetColor(c);
@@ -130,7 +138,7 @@ internal class PurpleComet : IComet
         }
         else
         {
-            script.Strike("You failed to collect all the purple highlights! Strike.");
+            script.Strike("You failed to collect all the pink highlights! Strike.");
         }
 
         KMBombModule[] modules = UnityEngine.Object.FindObjectsOfType<KMBombModule>().Where(t => t != null).ToArray();
