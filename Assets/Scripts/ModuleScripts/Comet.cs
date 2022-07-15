@@ -94,7 +94,7 @@ internal class PurpleComet : IComet
         this.particles = particles;
         this.script = script;
 
-        KMBombModule[] modules = UnityEngine.Object.FindObjectsOfType<KMBombModule>().Where(t => t != null).ToArray().Shuffle().Take(3).ToArray();
+        KMBombModule[] modules = script.transform.root.GetComponentsInChildren<KMBombModule>().Where(t => t != null).ToArray().Shuffle().Take(3).ToArray();
         needed = modules.Count();
 
         if(needed == 0)
